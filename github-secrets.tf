@@ -28,23 +28,27 @@ data "terraform_remote_state" "phase1" {
 resource "github_actions_organization_secret" "instance_id_secret" {
   repository       = "create-secret-terraform"
   secret_name      = "INSTANCE_ID"
+  visibility       = "private"
   plaintext_value  = data.terraform_remote_state.phase1.outputs.backend_instance_id
 }
 
 resource "github_actions_organization_secret" "prod_backend_secret" {
   repository       = "create-secret-terraform"
   secret_name      = "URL_API_PROD"
+  visibility       = "private"
   plaintext_value  = data.terraform_remote_state.phase1.outputs.backend_prod_adress
 }
 
 resource "github_actions_organization_secret" "staging_backend_secret" {
   repository       = "create-secret-terraform"
   secret_name      = "URL_API_DEV"
+  visibility       = "private"
   plaintext_value  = data.terraform_remote_state.phase1.outputs.backend_staging_adress
 }
 
 resource "github_actions_organization_secret" "db_adress_secret" {
   repository       = "create-secret-terraform"
   secret_name      = "DATABASE_URL"
+  visibility       = "private"
   plaintext_value  = data.terraform_remote_state.phase1.outputs.db_adress
 }
